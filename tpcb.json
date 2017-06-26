@@ -1,0 +1,7 @@
+{
+	"Branches": 100,
+	"TellerPerBranch": 10,
+	"AccountPerBranch": 10000,
+	"Nthreads": 90,
+	"Duration": 10
+}

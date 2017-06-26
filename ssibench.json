@@ -1,0 +1,8 @@
+{
+	"TableSize": 100000,
+	"ReadSize": 100,
+	"UpdateSize": 20,
+	"Nthreads": 90,
+	"Duration": 20,
+	"ReadRatio": 0.5
+}
