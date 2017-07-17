@@ -7,6 +7,7 @@ import (
 	"runtime"
 	"ssibench"
 	"tpcb"
+    "simple"
 )
 
 func main() {
@@ -14,18 +15,22 @@ func main() {
 	var conf string
 	var init bool
 	var bench string
-	flag.StringVar(&bench, "bench", "ssibench", "Benchmark: ssibench/tpcb")
+	flag.StringVar(&bench, "bench", "default", "Benchmark: default/ssibench/tpcb")
 	flag.BoolVar(&init, "init", false, "Initilize tables")
-	flag.StringVar(&conf, "configure", "tpcb.json", "Concurrent workers")
 
 	flag.Parse()
 
 	switch bench {
+    case"default":
+        conf = "default.json"
+        if init{
+            ssibench.InitBench(conf);
+        }else{
+            simple.RunBench(conf);
+        }
+        break
 	case "ssibench":
-		if conf == "tpcb.json" {
-			conf = "ssibench.json"
-		}
-
+        conf = "ssibench.json"
 		if init {
 			ssibench.InitBench(conf)
 		} else {
@@ -33,6 +38,7 @@ func main() {
 		}
 		break
 	case "tpcb":
+        conf = "tpcb.json"
 		if init {
 			tpcb.InitBench(conf)
 		} else {

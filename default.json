@@ -2,7 +2,7 @@
 	"TableSize": 100000,
 	"ReadSize": 100,
 	"UpdateSize": 20,
-	"Nthreads": 40,
+	"Nthreads": 50,
 	"Duration": 20,
 	"ReadRatio": 0.5
 }

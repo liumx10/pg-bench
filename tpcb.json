@@ -3,5 +3,5 @@
 	"TellerPerBranch": 10,
 	"AccountPerBranch": 10000,
 	"Nthreads": 90,
-	"Duration": 10
+	"Duration": 20
 }
