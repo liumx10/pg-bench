@@ -69,9 +69,9 @@ func read_only(db *sql.DB) int {
 	txn, err := db.BeginTx(context.Background(), nil)
 	checkErr(err, "connect to database failed")
 
-    	var sum int
-	    query := `select sum(b_int) from  ssibench1 where b_int_key > $1 and b_int_key < $2;`
-	    err = txn.QueryRow(query, xid, xid+conf.ReadSize).Scan(&sum)
+	var sum int
+	query := `select sum(b_int) from  ssibench1 where b_int_key > $1 and b_int_key < $2;`
+	err = txn.QueryRow(query, xid, xid+conf.ReadSize).Scan(&sum)
 	txn.Commit()
 	if err != nil {
 		return 0
@@ -85,14 +85,15 @@ func update(db *sql.DB) int {
 	if err != nil {
 		return 0
 	}
-	    condition := random_condition(conf.UpdateSize)
-        query := fmt.Sprintf("update ssibench1 set %s = '%s' %s", random_col(), random_string(20), condition)
-    	//fmt.Println(query)
-    	_, err = txn.Exec(query)
-	    if err != nil {
-		    txn.Rollback()
-	    	return 0
-    	}
+	condition := random_condition(conf.UpdateSize)
+	query := fmt.Sprintf("update ssibench1 set %s = '%s' %s",
+		random_col(), random_string(conf.UpdateSize), condition)
+	//fmt.Println(query)
+	_, err = txn.Exec(query)
+	if err != nil {
+		txn.Rollback()
+		return 0
+	}
 	err = txn.Commit()
 	if err != nil {
 		return 0
